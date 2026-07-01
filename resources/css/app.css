@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+@theme {
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-cream: #fff2e1;
+    --color-darken: #2f327d;
+    --color-skilline-orange: #f48c06;
+    --color-skilline-cyan: #65daff;
+    --color-skilline-sky: #23bdee;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@keyframes floating {
+    0% { transform: translate(0, 0); }
+    50% { transform: translate(0, 8px); }
+    100% { transform: translate(0, 0); }
+}
+
+@layer utilities {
+    .floating {
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    .floating-4 {
+        animation: floating 4s ease-in-out infinite;
+    }
+}
+
+@layer components {
+    .site-surface {
+        @apply rounded-xl border border-gray-100 bg-white shadow-xl;
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center rounded-full bg-skilline-orange px-8 py-3 text-sm font-bold text-white shadow-sm transition-transform duration-300 ease-in-out hover:scale-105 focus:outline-none;
+    }
+
+    .btn-accent {
+        @apply inline-flex w-fit items-center justify-center rounded-full bg-skilline-orange px-9 py-4 text-xl font-bold text-white transition-transform duration-300 ease-in-out hover:scale-105 focus:outline-none;
+    }
+
+    .btn-read-article {
+        @apply inline-flex w-fit items-center justify-center rounded-full bg-skilline-orange px-8 py-3 text-sm font-bold text-white transition-transform duration-300 ease-in-out hover:scale-105 focus:outline-none;
+    }
+
+    .btn-slider-nav {
+        @apply flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border-4 border-skilline-orange/75 bg-white/25 text-skilline-orange shadow-sm backdrop-blur-sm transition-all duration-300 ease-in-out hover:scale-110 hover:border-skilline-orange hover:bg-white/50 focus:outline-none sm:h-16 sm:w-16;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center rounded-full border border-gray-200 bg-white px-8 py-3 text-sm font-medium text-darken transition-colors hover:bg-gray-50;
+    }
+
+    .link-accent {
+        @apply font-medium text-darken underline-offset-2 transition-colors hover:text-skilline-orange;
+    }
+
+    .content-panel {
+        @apply rounded-2xl bg-white p-8 shadow-xl sm:p-10 lg:p-12;
+    }
+
+    .section-cream {
+        @apply relative overflow-hidden bg-cream text-darken;
+    }
+
+    .section-white {
+        @apply bg-white text-darken;
+    }
+
+    .cms-content {
+        @apply leading-relaxed text-black;
+    }
+
+    .cms-content > * + * {
+        @apply mt-4;
+    }
+
+    .cms-content h2 {
+        @apply mt-8 text-2xl font-semibold text-black;
+    }
+
+    .cms-content h3 {
+        @apply mt-6 text-xl font-semibold text-black;
+    }
+
+    .cms-content a {
+        @apply text-black underline underline-offset-2 hover:text-gray-700;
+    }
+
+    .cms-content ul,
+    .cms-content ol {
+        @apply my-4 ml-6 list-disc space-y-2;
+    }
+
+    .cms-content ol {
+        @apply list-decimal;
+    }
+
+    .cms-content blockquote {
+        @apply border-l-4 border-gray-300 bg-gray-50 pl-4 italic text-gray-700;
+    }
+
+    .cms-content img {
+        @apply my-6 h-auto max-w-full rounded-lg;
+    }
+
+    .cms-content pre {
+        @apply overflow-x-auto rounded-lg bg-gray-900 p-4 text-sm text-gray-100;
+    }
+
+    .cms-content code {
+        @apply rounded bg-gray-100 px-1.5 py-0.5 font-mono text-sm text-black;
+    }
+
+    .cms-content pre code {
+        @apply bg-transparent p-0 text-inherit;
+    }
+}
