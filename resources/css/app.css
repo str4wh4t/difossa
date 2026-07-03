@@ -48,6 +48,10 @@
         @apply inline-flex w-fit items-center justify-center rounded-full bg-skilline-orange px-9 py-4 text-xl font-bold text-white transition-transform duration-300 ease-in-out hover:scale-105 focus:outline-none;
     }
 
+    .btn-accent-block {
+        @apply flex w-full items-center justify-center rounded-full bg-skilline-orange px-9 py-4 text-xl font-bold text-white transition-transform duration-300 ease-in-out hover:scale-[1.01] focus:outline-none;
+    }
+
     .btn-read-article {
         @apply inline-flex w-fit items-center justify-center rounded-full bg-skilline-orange px-8 py-3 text-sm font-bold text-white transition-transform duration-300 ease-in-out hover:scale-105 focus:outline-none;
     }
@@ -123,5 +127,110 @@
 
     .cms-content pre code {
         @apply bg-transparent p-0 text-inherit;
+    }
+
+    .competition-registration-card {
+        @apply relative overflow-hidden rounded-none border border-skilline-orange/20 bg-gradient-to-br from-cream via-white to-white p-6 shadow-lg sm:p-8;
+    }
+
+    .competition-registration-card-glow {
+        @apply pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-skilline-orange/15 blur-3xl;
+    }
+
+    .competition-registration-status {
+        @apply rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide;
+    }
+
+    .competition-registration-status--open {
+        @apply bg-green-100 text-green-800;
+    }
+
+    .competition-registration-status--upcoming {
+        @apply bg-amber-100 text-amber-800;
+    }
+
+    .competition-registration-status--closed {
+        @apply bg-gray-100 text-gray-600;
+    }
+
+    .competition-registration-countdown {
+        @apply my-8 text-center;
+    }
+
+    .competition-registration-countdown--compact {
+        @apply my-6;
+    }
+
+    .competition-registration-countdown-value {
+        @apply text-6xl font-bold leading-none tabular-nums text-skilline-orange sm:text-7xl;
+        text-shadow: 0 8px 24px rgb(244 140 6 / 0.18);
+    }
+
+    .competition-registration-countdown-label {
+        @apply mt-3 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500;
+    }
+
+    .competition-registration-dates {
+        @apply grid gap-4 sm:grid-cols-2;
+    }
+
+    .competition-registration-date {
+        @apply flex items-start gap-3 rounded-xl border border-gray-100 bg-white/80 p-4 shadow-sm;
+    }
+
+    .competition-registration-date-icon {
+        @apply flex h-10 w-10 shrink-0 items-center justify-center rounded-full;
+    }
+
+    .competition-registration-date-icon--open {
+        @apply bg-skilline-cyan/20 text-skilline-sky;
+    }
+
+    .competition-registration-date-icon--close {
+        @apply bg-skilline-orange/15 text-skilline-orange;
+    }
+
+    .competition-registration-date-label {
+        @apply text-xs font-semibold uppercase tracking-wide text-gray-500;
+    }
+
+    .competition-registration-date-value {
+        @apply mt-1 text-sm font-medium text-darken;
+    }
+
+    .competition-registration-progress {
+        @apply mt-6;
+    }
+
+    .competition-registration-progress-track {
+        @apply h-2 overflow-hidden rounded-full bg-gray-100;
+    }
+
+    .competition-registration-progress-bar {
+        @apply h-full rounded-full bg-gradient-to-r from-skilline-cyan via-skilline-orange to-skilline-orange transition-all duration-500;
+    }
+
+    .competition-registration-progress-label {
+        @apply mt-2 text-xs font-medium text-gray-500;
+    }
+
+    .competition-status-badge {
+        @apply inline-flex items-center rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider;
+    }
+
+    .competition-status-badge--open {
+        @apply bg-green-100 text-green-800 ring-1 ring-green-200;
+    }
+
+    .competition-status-badge--closed {
+        @apply bg-gray-100 text-gray-700 ring-1 ring-gray-200;
+    }
+
+    .competition-status-badge--finished {
+        @apply bg-blue-100 text-blue-800 ring-1 ring-blue-200;
+    }
+
+    .competition-status-badge--default {
+        @apply bg-amber-100 text-amber-800 ring-1 ring-amber-200;
     }
 }

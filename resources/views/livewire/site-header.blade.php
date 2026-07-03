@@ -33,6 +33,13 @@
                         class="mt-2 rounded-lg bg-transparent px-4 py-2 text-sm hover:text-gray-900 focus:outline-none md:ml-4 md:mt-8"
                     />
                 @endforeach
+
+                <a
+                    href="{{ url('/admin/register') }}"
+                    class="mt-2 rounded-lg bg-transparent px-4 py-2 text-sm hover:text-gray-900 focus:outline-none md:ml-4 md:mt-8"
+                >
+                    Register
+                </a>
             </nav>
 
             <nav
@@ -48,6 +55,14 @@
                         class="mt-2 rounded-lg px-4 py-2 text-sm hover:bg-white/60 hover:text-gray-900"
                     />
                 @endforeach
+
+                <a
+                    href="{{ url('/admin/register') }}"
+                    wire:navigate
+                    class="mt-2 rounded-lg px-4 py-2 text-sm hover:bg-white/60 hover:text-gray-900"
+                >
+                    Register
+                </a>
             </nav>
         @endif
     </div>

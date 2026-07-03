@@ -16,4 +16,9 @@ class PostStatus extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+    public function hasPosts(): bool
+    {
+        return $this->posts()->exists();
+    }
 }

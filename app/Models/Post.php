@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Filesystem\FilesystemAdapter;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -46,20 +47,16 @@ class Post extends Model
             }
         });
 
-        static::saved(function (Post $post): void {
+        static::created(function (Post $post): void {
+            static::syncFeaturedImageThumbnail($post);
+        });
+
+        static::updated(function (Post $post): void {
             if (! $post->wasChanged('featured_image')) {
                 return;
             }
 
-            $featuredImageService = app(FeaturedImageService::class);
-            $thumbnail = $featuredImageService->syncThumbnailForPost(
-                $post->featured_image,
-                $post->getOriginal('featured_image_thumbnail'),
-            );
-
-            if ($thumbnail !== $post->featured_image_thumbnail) {
-                $post->forceFill(['featured_image_thumbnail' => $thumbnail])->saveQuietly();
-            }
+            static::syncFeaturedImageThumbnail($post);
         });
 
         static::deleting(function (Post $post): void {
@@ -125,7 +122,10 @@ class Post extends Model
             return null;
         }
 
-        return Storage::disk('public')->url($this->featured_image_thumbnail);
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
+        return $disk->url($this->featured_image_thumbnail);
     }
 
     public function getFeaturedImageUrlAttribute(): ?string
@@ -134,11 +134,27 @@ class Post extends Model
             return null;
         }
 
-        return Storage::disk('public')->url($this->featured_image);
+        /** @var FilesystemAdapter $disk */
+        $disk = Storage::disk('public');
+
+        return $disk->url($this->featured_image);
     }
 
     public function getMetaTitleAttribute(?string $value): ?string
     {
         return filled($value) ? $value : $this->title;
+    }
+
+    protected static function syncFeaturedImageThumbnail(Post $post): void
+    {
+        $featuredImageService = app(FeaturedImageService::class);
+        $thumbnail = $featuredImageService->syncThumbnailForPost(
+            $post->featured_image,
+            $post->featured_image_thumbnail,
+        );
+
+        if ($thumbnail !== $post->featured_image_thumbnail) {
+            $post->forceFill(['featured_image_thumbnail' => $thumbnail])->saveQuietly();
+        }
     }
 }

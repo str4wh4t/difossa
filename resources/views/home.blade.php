@@ -28,23 +28,66 @@
         </section>
     @endif
 
-    @if ($posts->isNotEmpty())
-        <section class="container mx-auto max-w-screen-xl overflow-x-hidden px-8 py-20 text-gray-700">
-            <div class="mb-10 text-center">
-                <h2 class="my-3 text-2xl font-bold text-darken">
-                    Latest <span class="text-skilline-orange">Posts</span>
+    @if ($competitions->isNotEmpty())
+        <section class="section-white">
+            <div class="container mx-auto max-w-screen-xl px-8 py-20">
+                <div class="mb-12 text-center">
+                    <h2 class="text-3xl font-bold text-darken sm:text-4xl">
+                        Competitions and Registration
+                    </h2>
+                    <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-500 sm:text-lg">
+                        Explore open competitions, categories, and registration deadlines.
+                    </p>
+                </div>
+
+                <div class="space-y-16 lg:space-y-24">
+                    @foreach ($competitions as $competition)
+                        <x-competition-panel
+                            :competition="$competition"
+                            @class([
+                                'border-b border-gray-100 pb-16 lg:pb-24' => ! $loop->last,
+                            ])
+                        />
+                    @endforeach
+                </div>
+
+                <div class="mt-12 text-center">
+                    <a href="{{ route('competitions.index') }}" wire:navigate class="btn-read-article">
+                        View all competitions
+                    </a>
+                </div>
+            </div>
+        </section>
+    @endif
+
+    @if ($featuredPost)
+        <section class="container mx-auto max-w-screen-xl px-8 py-20 text-gray-700">
+            <div class="mb-12 text-center">
+                <h2 class="text-3xl font-bold text-darken sm:text-4xl">
+                    Latest News and Resources
                 </h2>
-                <p class="leading-relaxed text-gray-500">Recent articles and updates from our team.</p>
+                <p class="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-500 sm:text-lg">
+                    Catch up on the latest updates, stories, and resources from our team.
+                </p>
             </div>
 
-            <div class="grid gap-14 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-                @foreach ($posts as $post)
-                    <x-post-card :post="$post" />
-                @endforeach
+            <div @class([
+                'grid gap-12',
+                'lg:grid-cols-2 lg:gap-16' => $recentPosts->isNotEmpty(),
+            ])>
+                <x-post-news-featured :post="$featuredPost" />
+
+                @if ($recentPosts->isNotEmpty())
+                    <div class="flex flex-col justify-center gap-8 sm:gap-10">
+                        @foreach ($recentPosts as $post)
+                            <x-post-news-list-item :post="$post" />
+                        @endforeach
+                    </div>
+                @endif
             </div>
 
             <div class="mt-12 text-center">
-                <a href="{{ route('posts.index') }}" wire:navigate class="btn-outline">
+                <a href="{{ route('posts.index') }}" wire:navigate class="btn-read-article">
                     View all articles
                 </a>
             </div>

@@ -9,13 +9,15 @@ class FeaturedImageService
 {
     private const DISK = 'public';
 
-    private const THUMBNAIL_DIRECTORY = 'posts/thumbnails';
+    public const POST_THUMBNAIL_DIRECTORY = 'posts/thumbnails';
+
+    public const COMPETITION_THUMBNAIL_DIRECTORY = 'competitions/thumbnails';
 
     private const SCALE = 0.3;
 
     private const JPEG_QUALITY = 85;
 
-    public function createThumbnail(string $path): ?string
+    public function createThumbnail(string $path, string $thumbnailDirectory = self::POST_THUMBNAIL_DIRECTORY): ?string
     {
         $disk = Storage::disk(self::DISK);
 
@@ -43,9 +45,9 @@ class FeaturedImageService
             return null;
         }
 
-        $thumbnailPath = self::THUMBNAIL_DIRECTORY.'/'.basename($path);
+        $thumbnailPath = $thumbnailDirectory.'/'.basename($path);
 
-        $disk->makeDirectory(self::THUMBNAIL_DIRECTORY);
+        $disk->makeDirectory($thumbnailDirectory);
 
         $saved = imagejpeg($thumbnail, $disk->path($thumbnailPath), self::JPEG_QUALITY);
 
@@ -71,8 +73,11 @@ class FeaturedImageService
         }
     }
 
-    public function syncThumbnailForPost(?string $originalPath, ?string $existingThumbnailPath = null): ?string
-    {
+    public function syncThumbnail(
+        ?string $originalPath,
+        ?string $existingThumbnailPath = null,
+        string $thumbnailDirectory = self::POST_THUMBNAIL_DIRECTORY,
+    ): ?string {
         if (blank($originalPath)) {
             $this->delete($existingThumbnailPath);
 
@@ -81,11 +86,21 @@ class FeaturedImageService
 
         $this->delete($existingThumbnailPath);
 
-        return $this->createThumbnail($originalPath);
+        return $this->createThumbnail($originalPath, $thumbnailDirectory);
     }
 
-    public static function thumbnailPathFor(string $originalPath): string
+    public function syncThumbnailForPost(?string $originalPath, ?string $existingThumbnailPath = null): ?string
     {
-        return self::THUMBNAIL_DIRECTORY.'/'.basename($originalPath);
+        return $this->syncThumbnail($originalPath, $existingThumbnailPath, self::POST_THUMBNAIL_DIRECTORY);
+    }
+
+    public function syncThumbnailForCompetition(?string $originalPath, ?string $existingThumbnailPath = null): ?string
+    {
+        return $this->syncThumbnail($originalPath, $existingThumbnailPath, self::COMPETITION_THUMBNAIL_DIRECTORY);
+    }
+
+    public static function thumbnailPathFor(string $originalPath, string $thumbnailDirectory = self::POST_THUMBNAIL_DIRECTORY): string
+    {
+        return $thumbnailDirectory.'/'.basename($originalPath);
     }
 }

@@ -30,7 +30,18 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'full_name' => fake()->name(),
+            'affiliation' => fake()->company(),
         ];
+    }
+
+    public function configure(): static
+    {
+        return $this->afterCreating(function (User $user): void {
+            if ($user->roles()->doesntExist()) {
+                $user->assignRole(User::ROLE_PARTICIPANT);
+            }
+        });
     }
 
     /**
