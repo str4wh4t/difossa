@@ -58,12 +58,12 @@ class UsersTable
                     ->relationship(
                         'roles',
                         'name',
-                        fn ($query) => $query->where('name', '!=', User::ROLE_SUPER_ADMIN),
+                        fn($query) => $query->where('name', '!=', User::ROLE_SUPER_ADMIN),
                     ),
             ])
             ->recordActions([
                 Impersonate::make()
-                    ->redirectTo(fn () => Filament::getPanel('admin')->getUrl()),
+                    ->redirectTo(fn() => Filament::getPanel('admin')->getUrl()),
                 EditAction::make(),
             ])
             ->defaultSort('name');
