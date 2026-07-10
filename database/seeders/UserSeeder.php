@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
         $superAdmin->syncRoles([User::ROLE_SUPER_ADMIN]);
 
         $admin = User::query()->updateOrCreate(
-            ['email' => 'admin@difossa.test'],
+            ['email' => 'admin@difossa.org'],
             [
                 'name' => 'admin',
                 'full_name' => 'Site Admin',
@@ -32,7 +32,7 @@ class UserSeeder extends Seeder
         $admin->syncRoles([User::ROLE_ADMIN]);
 
         $participant = User::query()->updateOrCreate(
-            ['email' => 'participant@difossa.test'],
+            ['email' => 'participant@difossa.org'],
             [
                 'name' => 'participant',
                 'full_name' => 'Competition Participant',
