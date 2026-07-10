@@ -129,6 +129,59 @@
         @apply bg-transparent p-0 text-inherit;
     }
 
+    .cms-content table {
+        @apply my-6 w-full border-collapse text-sm;
+        border: 1px solid #d1d5db;
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    @media (min-width: 640px) {
+        .cms-content table {
+            display: table;
+        }
+    }
+
+    .cms-content thead {
+        @apply bg-darken text-white;
+    }
+
+    .cms-content th,
+    .cms-content td {
+        @apply border border-gray-300 px-3 py-2.5 align-top text-left text-gray-700;
+    }
+
+    .cms-content th {
+        @apply bg-darken font-semibold text-white;
+    }
+
+    .cms-content td p,
+    .cms-content th p {
+        @apply m-0;
+    }
+
+    /* Rich Editor tables often put headers in the first tbody row */
+    .cms-content tbody tr:first-child td {
+        @apply bg-darken font-semibold text-white;
+    }
+
+    .cms-content tbody tr:first-child td p,
+    .cms-content tbody tr:first-child td strong,
+    .cms-content tbody tr:first-child td em,
+    .cms-content tbody tr:first-child td a {
+        @apply text-white;
+    }
+
+    .cms-content tbody tr:not(:first-child):nth-child(even) td {
+        @apply bg-gray-50;
+    }
+
+    .cms-content tbody tr:not(:first-child):hover td {
+        @apply bg-cream/70;
+    }
+
     .competition-registration-card {
         @apply relative overflow-hidden rounded-none border border-skilline-orange/20 bg-gradient-to-br from-cream via-white to-white p-6 shadow-lg sm:p-8;
     }
